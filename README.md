@@ -4,15 +4,13 @@
 
 A tool for fixing PNG images where the height and width have been manually altered, resulting in CRC32 mismatch (commonly seen in CTF challenges)
 
-The images looks like 
+original image(`examples/plum.png`) can't load successfully
 
 ![image](https://github.com/user-attachments/assets/c7e1d11e-ad49-4f5a-9a5a-e26e287e7c3a)
 
 After fix, it becomes
 
 ![image](https://github.com/user-attachments/assets/aa9d6e3f-50a3-4ecb-a463-2700b8dee084)
-
-
 
 ## Features
 

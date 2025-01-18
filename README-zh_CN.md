@@ -4,6 +4,14 @@
 
 一个用于修复 PNG 图片，其宽高被人为调整过，CRC32 无法匹配的场景（多见于 CTF 题目中）
 
+原图片(`examples/plum.png`)无法正常打开
+
+![image](https://github.com/user-attachments/assets/c7e1d11e-ad49-4f5a-9a5a-e26e287e7c3a)
+
+修复后可以正常打开
+
+![image](https://github.com/user-attachments/assets/aa9d6e3f-50a3-4ecb-a463-2700b8dee084)
+
 ## 功能
 
 1. 跨平台无需安装
