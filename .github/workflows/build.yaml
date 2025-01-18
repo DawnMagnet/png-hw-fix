@@ -18,13 +18,23 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            archive_name: png-hw-fix-linux-x86_64-gnu.tar.gz
+            asset_name: png-hw-fix
+            cross: true
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            archive_name: png-hw-fix-linux-aarch64-gnu.tar.gz
+            asset_name: png-hw-fix
+            cross: true
+          - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
-            archive_name: png-hw-fix-linux-x86_64.tar.gz
+            archive_name: png-hw-fix-linux-x86_64-musl.tar.gz
             asset_name: png-hw-fix
             cross: true
           - os: ubuntu-latest
             target: aarch64-unknown-linux-musl
-            archive_name: png-hw-fix-linux-aarch64.tar.gz
+            archive_name: png-hw-fix-linux-aarch64-musl.tar.gz
             asset_name: png-hw-fix
             cross: true
           - os: windows-latest
@@ -76,7 +86,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
-          cp ../../../${{ matrix.asset_name }} ${{ matrix.asset_name }}.exe
+          cp ${{ matrix.asset_name }} ..\\..\\..\\${{ matrix.archive_name }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -99,8 +109,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            **/png-hw-fix-linux-x86_64.tar.gz
-            **/png-hw-fix-linux-aarch64.tar.gz
+            **/png-hw-fix-linux-x86_64-gnu.tar.gz
+            **/png-hw-fix-linux-aarch64-gnu.tar.gz
+            **/png-hw-fix-linux-x86_64-musl.tar.gz
+            **/png-hw-fix-linux-aarch64-musl.tar.gz
             **/png-hw-fix-windows-x86_64.exe
             **/png-hw-fix-macos-x86_64.tar.gz
             **/png-hw-fix-macos-aarch64.tar.gz
