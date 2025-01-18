@@ -22,14 +22,24 @@ jobs:
             archive_name: png-hw-fix-linux-x86_64.tar.gz
             asset_name: png-hw-fix
             cross: true
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-musl
+            archive_name: png-hw-fix-linux-aarch64.tar.gz
+            asset_name: png-hw-fix
+            cross: true
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            archive_name: png-hw-fix-windows-x86_64.zip
+            archive_name: png-hw-fix-windows-x86_64.exe
             asset_name: png-hw-fix.exe
             cross: false
           - os: macos-latest
             target: x86_64-apple-darwin
             archive_name: png-hw-fix-macos-x86_64.tar.gz
+            asset_name: png-hw-fix
+            cross: false
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            archive_name: png-hw-fix-macos-aarch64.tar.gz
             asset_name: png-hw-fix
             cross: false
 
@@ -56,17 +66,17 @@ jobs:
           args: --release --target ${{ matrix.target }}
           use-cross: ${{ matrix.cross }}
 
-      - name: Prepare archive (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          cd target/${{ matrix.target }}/release
-          zip ../../../${{ matrix.archive_name }} ${{ matrix.asset_name }}
-
       - name: Prepare archive (Unix)
         if: matrix.os != 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
           tar czf ../../../${{ matrix.archive_name }} ${{ matrix.asset_name }}
+
+      - name: Prepare archive (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd target/${{ matrix.target }}/release
+          cp ../../../${{ matrix.asset_name }} ${{ matrix.asset_name }}.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -90,8 +100,10 @@ jobs:
         with:
           files: |
             **/png-hw-fix-linux-x86_64.tar.gz
-            **/png-hw-fix-windows-x86_64.zip
+            **/png-hw-fix-linux-aarch64.tar.gz
+            **/png-hw-fix-windows-x86_64.exe
             **/png-hw-fix-macos-x86_64.tar.gz
+            **/png-hw-fix-macos-aarch64.tar.gz
           draft: false
           prerelease: false
           generate_release_notes: true
